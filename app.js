@@ -38,8 +38,8 @@ function Book(title, author, pages, status) {
 function addBookToLibrary() {
     myLibrary.forEach(book => {
         const bookCard = document.createElement('div');
-        const bookTitle = document.createElement('h1')
-        const bookAuthor = document.createElement('h2')
+        const bookTitle = document.createElement('h2')
+        const bookAuthor = document.createElement('h3')
         const bookPages = document.createElement('p')
         const bookStatus = document.createElement('p')
 
@@ -71,8 +71,9 @@ function addBookToLibrary() {
 
     });
 }
+
 addBookToLibrary();
 
-// Write a function that loops through the array and displays each book on the page.
-// You can display them in some sort of table, or each on their own “card”. 
-// It might help for now to manually add a few books to your array so you can see the display.
+// Add a “NEW BOOK” button that brings up a form allowing users to input the details
+// for the new book: author, title, number of pages, whether it’s been read and 
+// anything else you might want.
