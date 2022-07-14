@@ -30,49 +30,11 @@ function Book(title, author, pages, status) {
     this.info = function () {
         return `${title} by ${author},${pages} pages, isRead: ${isRead} `;
     }
-    this.add = function () {
-
-    }
 }
 
-function addBookToLibrary() {
-    myLibrary.forEach(book => {
-        const bookCard = document.createElement('div');
-        const bookTitle = document.createElement('h2')
-        const bookAuthor = document.createElement('h3')
-        const bookPages = document.createElement('p')
-        const bookStatus = document.createElement('p')
-
-        const newBook = new Book(book.title, book.author, book.pages, book.status)
-
-
-        bookTitle.textContent = newBook.title;
-        bookAuthor.textContent = newBook.author;
-        bookPages.textContent = newBook.pages;
 
 
 
-        if (book.status) {
-            bookStatus.textContent = "Read";
-        } else {
-            bookStatus.textContent = "Not Read";
-        }
-
-
-
-        bookCard.appendChild(bookTitle);
-        bookCard.appendChild(bookAuthor);
-        bookCard.appendChild(bookPages);
-        bookCard.appendChild(bookStatus);
-
-
-
-        document.body.appendChild(bookCard)
-
-    });
-}
-
-addBookToLibrary();
 
 // Add a “NEW BOOK” button that brings up a form allowing users to input the details
 // for the new book: author, title, number of pages, whether it’s been read and 
@@ -80,9 +42,16 @@ addBookToLibrary();
 
 const newBookButton = document.querySelector('.new-book')
 
+
+
 newBookButton.addEventListener('click', function () {
     if (!document.querySelector('form')) {
         const bookForm = document.createElement('form');
+
+        bookForm.setAttribute("onsubmit", "return false");
+
+
+
 
         const formBookTitleLabel = document.createElement('label')
         const formBookTitleInput = document.createElement('input')
@@ -130,11 +99,11 @@ newBookButton.addEventListener('click', function () {
         const formBookStatusInput = document.createElement('input')
 
         formBookStatusLabel.textContent = "Read? "
-        formBookStatusLabel.setAttribute("for", "read")
+        formBookStatusLabel.setAttribute("for", "status")
 
         formBookStatusInput.setAttribute("type", "checkbox")
-        formBookStatusInput.setAttribute("name", "read")
-        formBookStatusInput.setAttribute("id", "read")
+        formBookStatusInput.setAttribute("name", "status")
+        formBookStatusInput.setAttribute("id", "status")
 
         bookForm.appendChild(formBookStatusLabel)
         bookForm.appendChild(formBookStatusInput)
@@ -144,20 +113,66 @@ newBookButton.addEventListener('click', function () {
         submitButton.textContent = 'Add Book'
         submitButton.setAttribute("type", "submit")
         bookForm.appendChild(submitButton);
-
-
-
         document.body.appendChild(bookForm)
 
 
-        myLibrary.push(
-            {
-                title: formBookTitleInput.value,
-                author: formBookAuthorInput.value,
-                pages: formBookPagesInput.value
-            }
-        );  
+
+
+
+        submitButton.addEventListener('click', function () {
+
+            const bookCard = document.createElement('div');
+            const bookTitle = document.createElement('h2')
+            const bookAuthor = document.createElement('h3')
+            const bookPages = document.createElement('p')
+            const bookStatus = document.createElement('p')
+
+
+            let formDataAcquired = Array
+                .from(document.querySelectorAll('form input'))
+                .reduce((acc, input) =>
+                    ({ ...acc, [input.id]: input.value }), {});
+
+
+
+
+            console.log(formDataAcquired);
+
+
+            bookTitle.textContent = formDataAcquired.title;
+            bookAuthor.textContent = formDataAcquired.author;
+            bookPages.textContent = formDataAcquired.pages;
+
+
+
+
+
+
+            bookCard.appendChild(bookTitle);
+            bookCard.appendChild(bookAuthor);
+            bookCard.appendChild(bookPages);
+            bookCard.appendChild(bookStatus);
+
+            document.body.appendChild(bookCard)
+
+
+
+
+
+        })
+
+
     }
+
+
+
+
+
+
+
+
+
+
 
 
     else {
@@ -166,3 +181,44 @@ newBookButton.addEventListener('click', function () {
 
 
 })
+
+
+function addBookToLibrary() {
+
+    myLibrary.forEach(book => {
+        const bookCard = document.createElement('div');
+        const bookTitle = document.createElement('h2')
+        const bookAuthor = document.createElement('h3')
+        const bookPages = document.createElement('p')
+        const bookStatus = document.createElement('p')
+
+        const newBook = new Book(book.title, book.author, book.pages, book.status)
+
+
+        bookTitle.textContent = newBook.title;
+        bookAuthor.textContent = newBook.author;
+        bookPages.textContent = newBook.pages;
+
+
+
+        if (book.status) {
+            bookStatus.textContent = "Read";
+        } else {
+            bookStatus.textContent = "Not Read";
+        }
+
+
+
+        bookCard.appendChild(bookTitle);
+        bookCard.appendChild(bookAuthor);
+        bookCard.appendChild(bookPages);
+        bookCard.appendChild(bookStatus);
+
+        document.body.appendChild(bookCard)
+
+    });
+
+}
+
+
+addBookToLibrary();
