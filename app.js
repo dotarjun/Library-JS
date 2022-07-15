@@ -40,7 +40,7 @@ function bookCardCreator(bookSource) {
     bookAuthor.textContent = bookSource.author;
     bookPages.textContent = bookSource.pages;
 
-    if (bookSource.checked || bookSource.status) {
+    if (bookSource.status) {
         bookStatus.textContent = "Read";
     } else {
         bookStatus.textContent = "Not Read";
@@ -62,7 +62,6 @@ newBookButton.addEventListener('click', function () {
     if (!document.querySelector('form')) {
         const bookForm = document.createElement('form');
         bookForm.setAttribute("onsubmit", "return false");
-
         function inputLabelCreator(type, name, required = false, textContent) {
             const label = document.createElement('label')
             label.setAttribute("for", name);
@@ -87,21 +86,12 @@ newBookButton.addEventListener('click', function () {
         submitButton.setAttribute("type", "submit")
         bookForm.appendChild(submitButton);
         document.body.appendChild(bookForm)
-        console.log(document.getElementById('status').checked)
-
         submitButton.addEventListener('click', function () {
-            console.log(document.getElementById('status').checked)
             const formDataAcquired = Array
                 .from(document.querySelectorAll('form input'))
                 .reduce((acc, input) =>
                     ({ ...acc, [input.id]: input.value }), {});
-
             formDataAcquired.status = document.getElementById('status').checked
-            // console.log(formDataAcquired);
-            // console.log(formDataAcquired.checked);
-            // console.log(document.getElementById('status').value);
-            // console.log(document.getElementById('status').isChecked)
-
             bookCardCreator(formDataAcquired);
         })
     }
