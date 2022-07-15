@@ -45,11 +45,16 @@ const newBookButton = document.querySelector('.new-book')
 
 
 newBookButton.addEventListener('click', function () {
+
+    if (document.querySelector('form')) {
+        document.body.querySelector('form').style.display = 'initial'
+    }
+
     if (!document.querySelector('form')) {
         const bookForm = document.createElement('form');
-
         bookForm.setAttribute("onsubmit", "return false");
 
+        
 
 
 
@@ -62,6 +67,7 @@ newBookButton.addEventListener('click', function () {
         formBookTitleInput.setAttribute("type", "text")
         formBookTitleInput.setAttribute("name", "title")
         formBookTitleInput.setAttribute("id", "title")
+        formBookTitleInput.required = true;
 
         bookForm.appendChild(formBookTitleLabel)
         bookForm.appendChild(formBookTitleInput)
@@ -76,6 +82,7 @@ newBookButton.addEventListener('click', function () {
         formBookAuthorInput.setAttribute("type", "text")
         formBookAuthorInput.setAttribute("name", "author")
         formBookAuthorInput.setAttribute("id", "author")
+        formBookAuthorInput.required = true;
 
         bookForm.appendChild(formBookAuthorLabel)
         bookForm.appendChild(formBookAuthorInput)
@@ -90,6 +97,7 @@ newBookButton.addEventListener('click', function () {
         formBookPagesInput.setAttribute("type", "number")
         formBookPagesInput.setAttribute("name", "pages")
         formBookPagesInput.setAttribute("id", "pages")
+        formBookPagesInput.required = true;
 
         bookForm.appendChild(formBookPagesLabel)
         bookForm.appendChild(formBookPagesInput)
@@ -128,15 +136,12 @@ newBookButton.addEventListener('click', function () {
             const bookStatus = document.createElement('p')
 
 
-            let formDataAcquired = Array
+            const formDataAcquired = Array
                 .from(document.querySelectorAll('form input'))
                 .reduce((acc, input) =>
                     ({ ...acc, [input.id]: input.value }), {});
 
 
-
-
-            console.log(formDataAcquired);
 
 
             bookTitle.textContent = formDataAcquired.title;
@@ -145,19 +150,24 @@ newBookButton.addEventListener('click', function () {
 
 
 
+            if (formBookStatusInput.checked) {
+                bookStatus.textContent = "Read";
+            } else {
+                bookStatus.textContent = "Not Read";
+            }
 
-
+            console.log(formDataAcquired.status);
 
             bookCard.appendChild(bookTitle);
             bookCard.appendChild(bookAuthor);
             bookCard.appendChild(bookPages);
             bookCard.appendChild(bookStatus);
 
-            document.body.appendChild(bookCard)
+            document.body.appendChild(bookCard);
 
 
 
-
+            // this.form.style.display = 'none'
 
         })
 
@@ -166,18 +176,9 @@ newBookButton.addEventListener('click', function () {
 
 
 
-
-
-
-
-
-
-
-
-
-    else {
-        alert('Please submit a book first')
-    }
+    // else if () {
+    //     alert('Please submit a book first')
+    // }
 
 
 })
