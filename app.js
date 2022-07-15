@@ -54,67 +54,25 @@ newBookButton.addEventListener('click', function () {
         const bookForm = document.createElement('form');
         bookForm.setAttribute("onsubmit", "return false");
 
-        
+        function inputLabelCreator(type, name, required = false, textContent) {
+            const label = document.createElement('label')
+            label.setAttribute("for", name);
+            label.textContent = textContent;
 
+            const input = document.createElement('input')
+            input.setAttribute("type", type)
+            input.setAttribute("name", name)
+            input.setAttribute("id", name)
+            input.required = required
 
+            bookForm.appendChild(label);
+            bookForm.appendChild(input);
+        }
 
-        const formBookTitleLabel = document.createElement('label')
-        const formBookTitleInput = document.createElement('input')
-
-        formBookTitleLabel.textContent = "Book Title: "
-
-        formBookTitleLabel.setAttribute("for", "title")
-        formBookTitleInput.setAttribute("type", "text")
-        formBookTitleInput.setAttribute("name", "title")
-        formBookTitleInput.setAttribute("id", "title")
-        formBookTitleInput.required = true;
-
-        bookForm.appendChild(formBookTitleLabel)
-        bookForm.appendChild(formBookTitleInput)
-
-
-        const formBookAuthorLabel = document.createElement('label')
-        const formBookAuthorInput = document.createElement('input')
-
-        formBookAuthorLabel.textContent = "Author: "
-        formBookAuthorLabel.setAttribute("for", "author")
-
-        formBookAuthorInput.setAttribute("type", "text")
-        formBookAuthorInput.setAttribute("name", "author")
-        formBookAuthorInput.setAttribute("id", "author")
-        formBookAuthorInput.required = true;
-
-        bookForm.appendChild(formBookAuthorLabel)
-        bookForm.appendChild(formBookAuthorInput)
-
-
-        const formBookPagesLabel = document.createElement('label')
-        const formBookPagesInput = document.createElement('input')
-
-        formBookPagesLabel.textContent = "Pages: "
-        formBookPagesLabel.setAttribute("for", "pages")
-
-        formBookPagesInput.setAttribute("type", "number")
-        formBookPagesInput.setAttribute("name", "pages")
-        formBookPagesInput.setAttribute("id", "pages")
-        formBookPagesInput.required = true;
-
-        bookForm.appendChild(formBookPagesLabel)
-        bookForm.appendChild(formBookPagesInput)
-
-
-        const formBookStatusLabel = document.createElement('label')
-        const formBookStatusInput = document.createElement('input')
-
-        formBookStatusLabel.textContent = "Read? "
-        formBookStatusLabel.setAttribute("for", "status")
-
-        formBookStatusInput.setAttribute("type", "checkbox")
-        formBookStatusInput.setAttribute("name", "status")
-        formBookStatusInput.setAttribute("id", "status")
-
-        bookForm.appendChild(formBookStatusLabel)
-        bookForm.appendChild(formBookStatusInput)
+        inputLabelCreator("text", "title", true, "Book Title: ")
+        inputLabelCreator("text", "author", true, "Author: ")
+        inputLabelCreator("number", "pages", true, "Pages: ")
+        inputLabelCreator("checkbox", "status", false, "Read ")
 
 
         const submitButton = document.createElement('button')
