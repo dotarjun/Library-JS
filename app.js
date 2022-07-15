@@ -96,7 +96,7 @@ newBookButton.addEventListener('click', function () {
                 .reduce((acc, input) =>
                     ({ ...acc, [input.id]: input.value }), {});
 
-            // formDataAcquired.status = document.getElementById('status').checked
+            formDataAcquired.status = document.getElementById('status').checked
             // console.log(formDataAcquired);
             // console.log(formDataAcquired.checked);
             // console.log(document.getElementById('status').value);
