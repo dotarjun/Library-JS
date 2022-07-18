@@ -29,23 +29,29 @@ function Book(title, author, pages, status) {
     }
 }
 
+function addBookToLibrary() {
+    myLibrary.forEach(book => {
+        const newBook = new Book(book.title, book.author, book.pages, book.status)
+        bookCardCreator(newBook);
+    });
+}
+
+addBookToLibrary();
+
 function bookCardCreator(bookSource) {
     const bookCard = document.createElement('div');
     const bookTitle = document.createElement('h2')
     const bookAuthor = document.createElement('h3')
     const bookPages = document.createElement('p')
     const bookStatus = document.createElement('p')
-
     bookTitle.textContent = bookSource.title;
     bookAuthor.textContent = bookSource.author;
     bookPages.textContent = bookSource.pages;
-
     if (bookSource.status) {
         bookStatus.textContent = "Read";
     } else {
         bookStatus.textContent = "Not Read";
     }
-
     bookCard.appendChild(bookTitle);
     bookCard.appendChild(bookAuthor);
     bookCard.appendChild(bookPages);
@@ -61,6 +67,7 @@ newBookButton.addEventListener('click', function () {
     }
     if (!document.querySelector('form')) {
         const bookForm = document.createElement('form');
+        bookForm.setAttribute("id", "bookForm")
         bookForm.setAttribute("onsubmit", "return false");
         function inputLabelCreator(type, name, required = false, textContent) {
             const label = document.createElement('label')
@@ -93,16 +100,16 @@ newBookButton.addEventListener('click', function () {
                     ({ ...acc, [input.id]: input.value }), {});
             formDataAcquired.status = document.getElementById('status').checked
             bookCardCreator(formDataAcquired);
+
+            document.getElementById('title').value = ''
+            document.getElementById('author').value = ''
+            document.getElementById('pages').value = ''
+            document.getElementById('status').checked = false
+            document.getElementById("bookForm").remove()
         })
     }
 })
 
 
-function addBookToLibrary() {
-    myLibrary.forEach(book => {
-        const newBook = new Book(book.title, book.author, book.pages, book.status)
-        bookCardCreator(newBook);
-    });
-}
+// Add a button on each book’s display to change its read status.
 
-addBookToLibrary();
