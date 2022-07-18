@@ -49,9 +49,17 @@ function bookCardCreator(bookSource) {
     bookTitle.textContent = bookSource.title;
     bookAuthor.textContent = bookSource.author;
     bookPages.textContent = bookSource.pages;
+    toggleStatus.textContent = "🔁"
     bookSource.status ? bookStatus.textContent = 'Read' : bookStatus.textContent = 'Not Read';
 
-    
+    toggleStatus.addEventListener('click', function () {
+        bookSource.status = !bookSource.status
+        bookSource.status ? bookStatus.textContent = 'Read' : bookStatus.textContent = 'Not Read';
+
+        bookCard.removeChild(bookStatus)
+        bookCard.appendChild(bookStatus)
+    })
+
     bookCard.appendChild(bookTitle);
     bookCard.appendChild(bookAuthor);
     bookCard.appendChild(bookPages);
