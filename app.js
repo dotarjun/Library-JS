@@ -44,17 +44,18 @@ function bookCardCreator(bookSource) {
     const bookAuthor = document.createElement('h3')
     const bookPages = document.createElement('p')
     const bookStatus = document.createElement('p')
+    const toggleStatus = document.createElement('button')
+    bookCard.setAttribute("class", "bookCard")
     bookTitle.textContent = bookSource.title;
     bookAuthor.textContent = bookSource.author;
     bookPages.textContent = bookSource.pages;
-    if (bookSource.status) {
-        bookStatus.textContent = "Read";
-    } else {
-        bookStatus.textContent = "Not Read";
-    }
+    bookSource.status ? bookStatus.textContent = 'Read' : bookStatus.textContent = 'Not Read';
+
+    
     bookCard.appendChild(bookTitle);
     bookCard.appendChild(bookAuthor);
     bookCard.appendChild(bookPages);
+    bookCard.appendChild(toggleStatus)
     bookCard.appendChild(bookStatus);
     document.body.appendChild(bookCard)
 }
@@ -83,7 +84,6 @@ newBookButton.addEventListener('click', function () {
             bookForm.appendChild(label);
             bookForm.appendChild(input);
         }
-
         inputLabelCreator("text", "title", true, "Book Title: ")
         inputLabelCreator("text", "author", true, "Author: ")
         inputLabelCreator("number", "pages", true, "Pages: ")
@@ -100,7 +100,6 @@ newBookButton.addEventListener('click', function () {
                     ({ ...acc, [input.id]: input.value }), {});
             formDataAcquired.status = document.getElementById('status').checked
             bookCardCreator(formDataAcquired);
-
             document.getElementById('title').value = ''
             document.getElementById('author').value = ''
             document.getElementById('pages').value = ''
@@ -110,6 +109,4 @@ newBookButton.addEventListener('click', function () {
     }
 })
 
-
-// Add a button on each book’s display to change its read status.
-
+// Add a button on each book’s display to change its read status.     
