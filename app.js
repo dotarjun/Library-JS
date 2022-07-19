@@ -1,20 +1,20 @@
 let myLibrary = [
     {
-        title: "book1",
-        author: "Arjun Singh",
-        pages: 69,
+        title: "Atomic Habits",
+        author: "James Clear",
+        pages: 237,
         status: true
     },
     {
-        title: "book2",
-        author: "not Arjun",
+        title: "Psychology of Money",
+        author: "Morgan Housel",
         pages: 435,
         status: false
     },
     {
-        title: "book3",
-        author: "Also not Arjun",
-        pages: 43534534,
+        title: "Deep Work",
+        author: "Cal Newport",
+        pages: 536,
         status: true
     }
 ];
@@ -27,6 +27,10 @@ function Book(title, author, pages, status) {
     this.info = function () {
         return `${title} by ${author},${pages} pages, isRead: ${isRead} `;
     }
+    this.__proto__.toggle = function () {
+        return this.status = !this.status
+    }
+
 }
 
 function addBookToLibrary() {
@@ -36,19 +40,29 @@ function addBookToLibrary() {
     });
 }
 
+const libraryWrap = document.createElement('div')
+document.body.appendChild(libraryWrap)
+libraryWrap.classList.add('library-wrap')
 addBookToLibrary();
 
 function bookCardCreator(bookSource) {
     const bookCard = document.createElement('div');
-    const bookTitle = document.createElement('h2')
-    const bookAuthor = document.createElement('h3')
+    const bookTitle = document.createElement('h3')
+    const bookAuthor = document.createElement('h4')
     const bookPages = document.createElement('p')
     const bookStatus = document.createElement('p')
     const toggleStatus = document.createElement('button')
+    const bookDetails = document.createElement('div')
+    const readStatus = document.createElement('div')
+
     bookCard.setAttribute("class", "bookCard")
+    bookDetails.setAttribute("class", "book-details")
+    readStatus.setAttribute("class", "read-status")
+
+
     bookTitle.textContent = bookSource.title;
     bookAuthor.textContent = bookSource.author;
-    bookPages.textContent = bookSource.pages;
+    bookPages.textContent = `${bookSource.pages} pages`;
     toggleStatus.textContent = "🔁"
     bookSource.status ? bookStatus.textContent = 'Read' : bookStatus.textContent = 'Not Read';
 
@@ -62,10 +76,13 @@ function bookCardCreator(bookSource) {
 
     bookCard.appendChild(bookTitle);
     bookCard.appendChild(bookAuthor);
-    bookCard.appendChild(bookPages);
-    bookCard.appendChild(toggleStatus)
-    bookCard.appendChild(bookStatus);
-    document.body.appendChild(bookCard)
+    bookDetails.appendChild(bookPages);
+    readStatus.appendChild(toggleStatus)
+    readStatus.appendChild(bookStatus);
+    bookDetails.appendChild(readStatus)
+    bookCard.appendChild(bookDetails)
+    document.querySelector('.library-wrap').appendChild(bookCard)
+    document.body.appendChild(libraryWrap)
 }
 
 const newBookButton = document.querySelector('.new-book')
@@ -106,6 +123,7 @@ newBookButton.addEventListener('click', function () {
                 .from(document.querySelectorAll('form input'))
                 .reduce((acc, input) =>
                     ({ ...acc, [input.id]: input.value }), {});
+            myLibrary.push(formDataAcquired)
             formDataAcquired.status = document.getElementById('status').checked
             bookCardCreator(formDataAcquired);
             document.getElementById('title').value = ''
@@ -116,5 +134,3 @@ newBookButton.addEventListener('click', function () {
         })
     }
 })
-
-// Add a button on each book’s display to change its read status.     
