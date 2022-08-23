@@ -21,19 +21,23 @@ let myLibrary = [
     }
 ];
 
-function Book(title, author, pages, status) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.status = status
-    this.info = function () {
+class Book {
+    constructor(title, author, pages, status) {
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.status = status
+        return
+    }
+    info() {
         return `${title} by ${author},${pages} pages, isRead: ${isRead} `;
     }
-    this.__proto__.toggle = function () {
+    toggle = () => {
         return this.status = !this.status
     }
-
 }
+
+
 
 function addBookToLibrary() {
     myLibrary.forEach(book => {
