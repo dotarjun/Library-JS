@@ -1,5 +1,9 @@
 // start refactoring and using classes instead
 
+let jsError = document.querySelector('.JS-Error')
+jsError.style.backgroundColor = 'Red'
+jsError.style.display = 'none'
+
 let myLibrary = [
     {
         title: "Atomic Habits",
