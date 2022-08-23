@@ -1,3 +1,5 @@
+// start refactoring and using classes instead
+
 let myLibrary = [
     {
         title: "Atomic Habits",
